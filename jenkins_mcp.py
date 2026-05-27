@@ -5,7 +5,7 @@ A Model Context Protocol server for interacting with Jenkins CI/CD.
 Provides tools for listing jobs, triggering builds, viewing logs, and more.
 
 Environment Variables:
-    JENKINS_URL: Jenkins base URL (default: https://jenkins-hk-test.kuainiu.io)
+    JENKINS_URL: Jenkins base URL (e.g. https://jenkins.example.com)
     JENKINS_USER: Jenkins username
     JENKINS_TOKEN: Jenkins API token
     JENKINS_FOLDER: Jenkins folder name (default: oa)
