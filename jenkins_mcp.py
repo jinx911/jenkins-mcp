@@ -140,11 +140,25 @@ mcp = FastMCP("jenkins-mcp")
 # ---------------------------------------------------------------------------
 
 
+def _encode_job_path(job_name: str) -> str:
+    """Encode a job name (possibly nested with /) into Jenkins URL path.
+
+    Jenkins requires /job/ prefix for each path segment:
+        'oa-platform-php'          -> 'job/oa-platform-php'
+        'oa/oa-platform-php'       -> 'job/oa/job/oa-platform-php'
+        'folder/sub/job-name'      -> 'job/folder/job/sub/job/job-name'
+    """
+    segments = [s for s in job_name.split("/") if s]
+    return "/".join(f"job/{seg}" for seg in segments)
+
+
 def _job_url(job_name: str) -> str:
     """Build the API URL for a job. Uses folder path if JENKINS_FOLDER is set."""
+    encoded = _encode_job_path(job_name)
     if JENKINS_FOLDER:
-        return f"{JENKINS_URL}/job/{JENKINS_FOLDER}/job/{job_name}"
-    return f"{JENKINS_URL}/job/{job_name}"
+        folder_parts = _encode_job_path(JENKINS_FOLDER)
+        return f"{JENKINS_URL}/{folder_parts}/{encoded}"
+    return f"{JENKINS_URL}/{encoded}"
 
 
 def _auth() -> tuple[str, str]:
@@ -302,7 +316,8 @@ async def jenkins_list_jobs() -> str:
         jenkins_list_jobs()
     """
     if JENKINS_FOLDER:
-        url = f"{JENKINS_URL}/job/{JENKINS_FOLDER}/api/json?tree=jobs[name,color,lastBuild[number],url]"
+        folder_parts = _encode_job_path(JENKINS_FOLDER)
+        url = f"{JENKINS_URL}/{folder_parts}/api/json?tree=jobs[name,color,lastBuild[number],url]"
     else:
         url = f"{JENKINS_URL}/api/json?tree=jobs[name,color,lastBuild[number],url]"
     response = await _make_request("GET", url)
