@@ -1,15 +1,14 @@
 ---
-name: build-status
-description: Quick Jenkins build status check — view job status, recent builds, and failure logs
+name: jenkins-status
+description: Jenkins build status check — view job status, recent builds, and failure logs
 triggers:
-  - build-status
-  - build status
-  - 构建状态
+  - jenkins-status
   - jenkins status
+  - 构建状态
   - 构建结果
 ---
 
-# /build-status — Jenkins Build Status Check
+# /jenkins-status — Build Status Check
 
 Quick status check for Jenkins builds. Shows overview, recent builds, and auto-fetches failure logs when needed.
 

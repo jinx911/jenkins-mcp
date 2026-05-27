@@ -1,15 +1,14 @@
 ---
-name: deploy
+name: jenkins-deploy
 description: Interactive Jenkins deploy — trigger builds with parameter selection
 triggers:
-  - deploy
+  - jenkins-deploy
+  - jenkins deploy
   - 部署
   - 发布
-  - jenkins deploy
-  - build and watch
 ---
 
-# /deploy — Interactive Jenkins Deploy
+# /jenkins-deploy — Interactive Deploy
 
 Interactive deploy skill for triggering Jenkins builds. Supports all OA project jobs with smart parameter defaults and interactive parameter selection.
 
@@ -127,7 +126,7 @@ Interactive deploy skill for triggering Jenkins builds. Supports all OA project 
    URL: {build_url}
    ```
 
-5. 如果构建失败，提示用户可以使用 `/build-log {job_name} {build_number}` 查看详细日志
+5. 如果构建失败，提示用户可以使用 `/jenkins-log {job_name} {build_number}` 查看详细日志
 
 ## 重要规则
 

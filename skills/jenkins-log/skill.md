@@ -1,15 +1,14 @@
 ---
-name: build-log
-description: Quick Jenkins build log viewer — fetch and display build console output
+name: jenkins-log
+description: Jenkins build log viewer — fetch and display build console output
 triggers:
-  - build-log
-  - build log
-  - 构建日志
+  - jenkins-log
   - jenkins log
+  - 构建日志
   - console output
 ---
 
-# /build-log — Jenkins Build Log Viewer
+# /jenkins-log — Build Log Viewer
 
 Quick log viewing for Jenkins builds. Auto-resolves latest build number and supports full or tail log output.
 

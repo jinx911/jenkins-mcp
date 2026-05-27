@@ -7,7 +7,7 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 SKILLS_DIR="$SCRIPT_DIR/skills"
-SETTINGS_FILE="$HOME/.claude/settings.json"
+SETTINGS_FILE="$HOME/.claude.json"
 
 # Colors
 RED='\033[0;31m'
@@ -143,9 +143,13 @@ echo -e "${GREEN}  Installation complete!${NC}"
 echo -e "${GREEN}═══════════════════════════════════════════${NC}"
 echo ""
 echo "  Available commands:"
-echo "    /deploy         — Trigger Jenkins builds interactively"
-echo "    /build-status   — Check build status"
-echo "    /build-log      — View build logs"
+echo "    /jenkins-deploy   — Trigger Jenkins builds interactively"
+echo "    /jenkins-status   — Check build status"
+echo "    /jenkins-log      — View build logs"
+echo "    /jenkins-queue    — View build queue"
+echo "    /jenkins-cancel   — Cancel a running build"
+echo "    /jenkins-compare  — Compare two builds"
+echo "    /jenkins-test     — View test report"
 echo ""
 echo "  Or use MCP tools directly:"
 echo "    jenkins_list_jobs, jenkins_get_build, jenkins_build, ..."

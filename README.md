@@ -22,7 +22,7 @@ Instead of switching to your browser to check build status or trigger deploys, a
 ## Features
 
 - **11 MCP tools** -- read-only, write, and advanced operations
-- **3 Claude Code skills** -- `/deploy`, `/build-status`, `/build-log` for interactive workflows
+- **7 Claude Code skills** -- `/jenkins-deploy`, `/jenkins-status`, `/jenkins-log`, `/jenkins-queue`, `/jenkins-cancel`, `/jenkins-compare`, `/jenkins-test` for interactive workflows
 - **Password masking** -- sensitive parameters are automatically redacted
 - **Folder support** -- works with folder-based Jenkins organizations via `JENKINS_FOLDER`
 - **Build & watch** -- trigger a build and poll until completion
@@ -141,13 +141,17 @@ Or use the `update-config` skill after installing.
 
 ## Claude Code Skills
 
-Three slash-command skills are included for interactive workflows:
+Seven slash-command skills are included for interactive workflows:
 
 | Skill | Trigger | Description |
 |-------|---------|-------------|
-| `/deploy` | `deploy`, `/deploy <job>` | Interactive build trigger -- lists jobs, presents parameter choices, triggers build, and watches for result |
-| `/build-status` | `build-status`, `/build-status <job>` | Quick status overview -- shows all jobs grouped by status, auto-fetches failure logs |
-| `/build-log` | `build-log`, `/build-log <job>` | Quick log viewer -- auto-resolves latest build, supports tail/full modes |
+| `/jenkins-deploy` | `jenkins-deploy`, `/jenkins-deploy <job>` | Interactive build trigger -- lists jobs, presents parameter choices, triggers build, and watches for result |
+| `/jenkins-status` | `jenkins-status`, `/jenkins-status <job>` | Quick status overview -- shows all jobs grouped by status, auto-fetches failure logs |
+| `/jenkins-log` | `jenkins-log`, `/jenkins-log <job>` | Quick log viewer -- auto-resolves latest build, supports tail/full modes |
+| `/jenkins-queue` | `jenkins-queue` | View build queue -- shows pending and queued builds |
+| `/jenkins-cancel` | `jenkins-cancel <job>` | Cancel a running or queued build |
+| `/jenkins-compare` | `jenkins-compare <job>` | Compare two builds -- parameters, duration, status |
+| `/jenkins-test` | `jenkins-test <job>` | View test report -- test results, failures, statistics |
 
 Install skills by copying the `skills/` directory into `~/.claude/skills/`.
 
@@ -270,9 +274,13 @@ pytest
 jenkins-mcp/
   jenkins_mcp.py     # Single-file MCP server (all 11 tools)
   skills/
-    deploy/           # /deploy skill
-    build-status/     # /build-status skill
-    build-log/        # /build-log skill
+    jenkins-deploy/   # /jenkins-deploy skill
+    jenkins-status/   # /jenkins-status skill
+    jenkins-log/      # /jenkins-log skill
+    jenkins-queue/    # /jenkins-queue skill
+    jenkins-cancel/   # /jenkins-cancel skill
+    jenkins-compare/  # /jenkins-compare skill
+    jenkins-test/     # /jenkins-test skill
   pyproject.toml      # Package metadata and dependencies
   LICENSE             # MIT
   .gitignore
@@ -349,9 +357,13 @@ pip install mcp pydantic httpx
 
 | 命令 | 说明 |
 |------|------|
-| `/deploy` | 交互式部署 -- 选择 Job、填写参数、触发构建并等待结果 |
-| `/build-status` | 快速状态查看 -- 展示所有 Job 状态，自动拉取失败日志 |
-| `/build-log` | 快速日志查看 -- 自动解析最新构建号，支持 tail/full 模式 |
+| `/jenkins-deploy` | 交互式部署 -- 选择 Job、填写参数、触发构建并等待结果 |
+| `/jenkins-status` | 快速状态查看 -- 展示所有 Job 状态，自动拉取失败日志 |
+| `/jenkins-log` | 快速日志查看 -- 自动解析最新构建号，支持 tail/full 模式 |
+| `/jenkins-queue` | 查看构建队列 -- 展示排队中的构建 |
+| `/jenkins-cancel` | 取消构建 -- 取消运行中或排队的构建 |
+| `/jenkins-compare` | 对比构建 -- 对比两次构建的参数、耗时、状态 |
+| `/jenkins-test` | 测试报告 -- 查看构建的测试结果和失败详情 |
 
 ### 使用示例
 
